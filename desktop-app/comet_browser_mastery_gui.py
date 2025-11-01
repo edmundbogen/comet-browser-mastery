@@ -466,15 +466,9 @@ class CometBrowserMasteryApp:
             lambda e: main_canvas.configure(scrollregion=main_canvas.bbox("all"))
         )
 
-        # Center the content horizontally
-        canvas_window = main_canvas.create_window((0, 0), window=scrollable_frame, anchor="n")
+        # Fill width properly
+        main_canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
         main_canvas.configure(yscrollcommand=scrollbar.set)
-
-        def center_window(event=None):
-            canvas_width = main_canvas.winfo_width()
-            main_canvas.coords(canvas_window, canvas_width // 2, 0)
-
-        main_canvas.bind('<Configure>', center_window)
 
         # Header - Navy Brand Color
         header_frame = tk.Frame(scrollable_frame, bg=self.colors['primary'], padx=40, pady=30)
@@ -682,28 +676,28 @@ class CometBrowserMasteryApp:
             card_frame,
             text="GENERATE PROMPT →",  # ALL CAPS for CTAs
             font=('Helvetica', 11, 'bold'),
-            bg=self.colors['secondary'],  # Bright blue #00a8e1
+            bg='#00a8e1',  # Bright blue - explicit hex
             fg='white',
             activebackground='#0090c5',  # Darker blue on hover
             activeforeground='white',
-            relief='raised',  # Changed from flat for better visibility
-            borderwidth=2,
+            relief='solid',  # Solid border for crisp look
+            borderwidth=1,
             highlightthickness=0,
+            highlightbackground='#00a8e1',
+            highlightcolor='#00a8e1',
             cursor='hand2',
-            command=lambda uc=use_case: self.show_prompt_generator(uc),
-            padx=15,
-            pady=12
+            command=lambda uc=use_case: self.show_prompt_generator(uc)
         )
-        button.pack(pady=(0, 20), padx=20, fill='x')
+        button.pack(pady=(5, 20), padx=20, fill='x', ipady=8)
 
         # Hover effects - Bright blue accent
         def on_enter(e):
-            card_frame.configure(highlightbackground=self.colors['secondary'])  # Bright blue
-            button.configure(bg='#0090c5')  # Darker blue
+            card_frame.configure(highlightbackground='#00a8e1')  # Bright blue
+            button.configure(bg='#0090c5')  # Darker blue on hover
 
         def on_leave(e):
             card_frame.configure(highlightbackground=self.colors['border'])
-            button.configure(bg=self.colors['secondary'])  # Back to bright blue
+            button.configure(bg='#00a8e1')  # Back to bright blue
 
         card_frame.bind('<Enter>', on_enter)
         card_frame.bind('<Leave>', on_leave)
@@ -729,15 +723,9 @@ class CometBrowserMasteryApp:
             lambda e: main_canvas.configure(scrollregion=main_canvas.bbox("all"))
         )
 
-        # Center the content horizontally
-        canvas_window = main_canvas.create_window((0, 0), window=scrollable_frame, anchor="n")
+        # Fill width properly
+        main_canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
         main_canvas.configure(yscrollcommand=scrollbar.set)
-
-        def center_window(event=None):
-            canvas_width = main_canvas.winfo_width()
-            main_canvas.coords(canvas_window, canvas_width // 2, 0)
-
-        main_canvas.bind('<Configure>', center_window)
 
         # Back button - Brand styling
         back_button = tk.Button(
