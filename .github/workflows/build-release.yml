@@ -1,0 +1,126 @@
+name: Build Desktop App Releases
+
+on:
+  push:
+    tags:
+      - 'v*'  # Triggers on version tags like v1.0, v1.1, etc.
+
+jobs:
+  build-macos:
+    runs-on: macos-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyinstaller
+
+      - name: Build macOS app
+        run: |
+          cd desktop-app
+          pyinstaller --name "Comet Browser Mastery" --windowed --clean comet_browser_mastery_gui.py
+
+      - name: Create ZIP for macOS
+        run: |
+          cd desktop-app/dist
+          zip -r "Comet-Browser-Mastery-Mac.zip" "Comet Browser Mastery.app"
+
+      - name: Upload macOS artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: macos-app
+          path: desktop-app/dist/Comet-Browser-Mastery-Mac.zip
+
+  build-windows:
+    runs-on: windows-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Set up Python
+        uses: actions/setup-python@v5
+        with:
+          python-version: '3.11'
+
+      - name: Install dependencies
+        run: |
+          pip install pyinstaller
+
+      - name: Build Windows app
+        run: |
+          cd desktop-app
+          pyinstaller --name "Comet Browser Mastery" --windowed --clean comet_browser_mastery_gui.py
+
+      - name: Create ZIP for Windows
+        run: |
+          cd desktop-app/dist
+          Compress-Archive -Path "Comet Browser Mastery" -DestinationPath "Comet-Browser-Mastery-Windows.zip"
+
+      - name: Upload Windows artifact
+        uses: actions/upload-artifact@v4
+        with:
+          name: windows-app
+          path: desktop-app/dist/Comet-Browser-Mastery-Windows.zip
+
+  create-release:
+    needs: [build-macos, build-windows]
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write
+    steps:
+      - name: Download macOS artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: macos-app
+
+      - name: Download Windows artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: windows-app
+
+      - name: Create Release
+        uses: softprops/action-gh-release@v2
+        with:
+          files: |
+            Comet-Browser-Mastery-Mac.zip
+            Comet-Browser-Mastery-Windows.zip
+          body: |
+            # Comet Browser Mastery - Desktop App
+
+            AI Prompt Generator for Real Estate Professionals by The Edmund Bogen Team
+
+            ## Downloads
+
+            - **Mac users**: Download `Comet-Browser-Mastery-Mac.zip`
+            - **Windows users**: Download `Comet-Browser-Mastery-Windows.zip`
+
+            ## Installation
+
+            ### macOS
+            1. Download and unzip the Mac file
+            2. Double-click `Comet Browser Mastery.app` to run
+            3. If you see a security warning, right-click the app and choose "Open"
+
+            ### Windows
+            1. Download and unzip the Windows file
+            2. Double-click `Comet Browser Mastery.exe` to run
+            3. If Windows SmartScreen appears, click "More info" then "Run anyway"
+
+            ## Features
+
+            ✨ 6 Pre-built real estate AI prompt templates
+            📋 One-click copy to clipboard
+            🎨 Professional Edmund Bogen Team branding
+            💼 Works offline - no internet required after download
+
+            ---
+
+            Created by The Edmund Bogen Team at Douglas Elliman Real Estate
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
