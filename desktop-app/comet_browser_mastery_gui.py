@@ -466,8 +466,15 @@ class CometBrowserMasteryApp:
             lambda e: main_canvas.configure(scrollregion=main_canvas.bbox("all"))
         )
 
-        main_canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        # Center the content horizontally
+        canvas_window = main_canvas.create_window((0, 0), window=scrollable_frame, anchor="n")
         main_canvas.configure(yscrollcommand=scrollbar.set)
+
+        def center_window(event=None):
+            canvas_width = main_canvas.winfo_width()
+            main_canvas.coords(canvas_window, canvas_width // 2, 0)
+
+        main_canvas.bind('<Configure>', center_window)
 
         # Header - Navy Brand Color
         header_frame = tk.Frame(scrollable_frame, bg=self.colors['primary'], padx=40, pady=30)
@@ -615,10 +622,15 @@ class CometBrowserMasteryApp:
         main_canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
 
-        # Bind mousewheel
+        # Bind mousewheel - macOS compatible
         def on_mousewheel(event):
-            main_canvas.yview_scroll(int(-1*(event.delta/120)), "units")
-        main_canvas.bind_all("<MouseWheel>", on_mousewheel)
+            # macOS uses event.delta directly
+            main_canvas.yview_scroll(int(-1 * event.delta), "units")
+
+        # Bind for both macOS and Windows/Linux
+        scrollable_frame.bind_all("<MouseWheel>", on_mousewheel)  # Windows/macOS
+        scrollable_frame.bind_all("<Button-4>", lambda e: main_canvas.yview_scroll(-1, "units"))  # Linux scroll up
+        scrollable_frame.bind_all("<Button-5>", lambda e: main_canvas.yview_scroll(1, "units"))  # Linux scroll down
 
     def create_use_case_card(self, parent, use_case):
         """Create a use case card button"""
@@ -669,14 +681,18 @@ class CometBrowserMasteryApp:
         button = tk.Button(
             card_frame,
             text="GENERATE PROMPT →",  # ALL CAPS for CTAs
-            font=('Helvetica', 10, 'bold'),
+            font=('Helvetica', 11, 'bold'),
             bg=self.colors['secondary'],  # Bright blue #00a8e1
             fg='white',
             activebackground='#0090c5',  # Darker blue on hover
             activeforeground='white',
-            relief='flat',
+            relief='raised',  # Changed from flat for better visibility
+            borderwidth=2,
+            highlightthickness=0,
             cursor='hand2',
-            command=lambda uc=use_case: self.show_prompt_generator(uc)
+            command=lambda uc=use_case: self.show_prompt_generator(uc),
+            padx=15,
+            pady=12
         )
         button.pack(pady=(0, 20), padx=20, fill='x')
 
@@ -713,8 +729,15 @@ class CometBrowserMasteryApp:
             lambda e: main_canvas.configure(scrollregion=main_canvas.bbox("all"))
         )
 
-        main_canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
+        # Center the content horizontally
+        canvas_window = main_canvas.create_window((0, 0), window=scrollable_frame, anchor="n")
         main_canvas.configure(yscrollcommand=scrollbar.set)
+
+        def center_window(event=None):
+            canvas_width = main_canvas.winfo_width()
+            main_canvas.coords(canvas_window, canvas_width // 2, 0)
+
+        main_canvas.bind('<Configure>', center_window)
 
         # Back button - Brand styling
         back_button = tk.Button(
@@ -795,10 +818,15 @@ class CometBrowserMasteryApp:
         main_canvas.pack(side="left", fill="both", expand=True)
         scrollbar.pack(side="right", fill="y")
 
-        # Bind mousewheel
+        # Bind mousewheel - macOS compatible
         def on_mousewheel(event):
-            main_canvas.yview_scroll(int(-1*(event.delta/120)), "units")
-        main_canvas.bind_all("<MouseWheel>", on_mousewheel)
+            # macOS uses event.delta directly
+            main_canvas.yview_scroll(int(-1 * event.delta), "units")
+
+        # Bind for both macOS and Windows/Linux
+        scrollable_frame.bind_all("<MouseWheel>", on_mousewheel)  # Windows/macOS
+        scrollable_frame.bind_all("<Button-4>", lambda e: main_canvas.yview_scroll(-1, "units"))  # Linux scroll up
+        scrollable_frame.bind_all("<Button-5>", lambda e: main_canvas.yview_scroll(1, "units"))  # Linux scroll down
 
     def create_form_field(self, parent, field):
         """Create a form field widget based on field type"""
