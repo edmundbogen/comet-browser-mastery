@@ -40,7 +40,7 @@ export const PromptGenerator: React.FC<PromptGeneratorProps> = ({ useCase, onBac
   };
 
   const renderField = (field: PromptField) => {
-    const commonClasses = "w-full px-4 py-2 border border-gray-300 rounded-lg focus:ring-2 focus:ring-blue-500 focus:border-transparent";
+    const commonClasses = "w-full px-4 py-3 border-2 border-purple-200 rounded-xl focus:ring-2 focus:ring-purple-500 focus:border-purple-500 bg-white shadow-sm hover:shadow-md transition-all duration-200";
 
     switch (field.type) {
       case 'textarea':
@@ -97,24 +97,25 @@ export const PromptGenerator: React.FC<PromptGeneratorProps> = ({ useCase, onBac
     <div className="max-w-4xl mx-auto">
       <button
         onClick={onBack}
-        className="mb-6 text-blue-600 hover:text-blue-800 font-medium flex items-center"
+        className="mb-6 text-purple-600 hover:text-purple-800 font-semibold flex items-center gap-2 hover:gap-3 transition-all duration-300 bg-white px-5 py-2 rounded-full shadow-md hover:shadow-lg"
       >
-        ← Back to Use Cases
+        <span className="text-lg">←</span>
+        <span>Back to Use Cases</span>
       </button>
 
-      <div className="bg-white rounded-xl shadow-lg p-8">
-        <div className="mb-6">
-          <span className="text-4xl">{useCase.icon}</span>
-          <h2 className="text-3xl font-bold text-gray-900 mt-2">{useCase.title}</h2>
-          <p className="text-gray-600 mt-2">{useCase.description}</p>
+      <div className="bg-gradient-to-br from-white via-purple-50 to-pink-50 rounded-2xl shadow-2xl p-8 border-2 border-purple-200">
+        <div className="mb-8">
+          <span className="text-6xl drop-shadow-lg">{useCase.icon}</span>
+          <h2 className="text-4xl font-extrabold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mt-4">{useCase.title}</h2>
+          <p className="text-gray-700 mt-3 text-lg leading-relaxed">{useCase.description}</p>
         </div>
 
         <form onSubmit={(e) => { e.preventDefault(); generatePrompt(); }} className="space-y-6">
           {useCase.fields.map(field => (
             <div key={field.id}>
-              <label className="block text-sm font-semibold text-gray-700 mb-2">
+              <label className="block text-sm font-bold text-gray-800 mb-2">
                 {field.label}
-                {field.required && <span className="text-red-500 ml-1">*</span>}
+                {field.required && <span className="text-pink-500 ml-1">*</span>}
               </label>
               {renderField(field)}
             </div>
@@ -122,33 +123,33 @@ export const PromptGenerator: React.FC<PromptGeneratorProps> = ({ useCase, onBac
 
           <button
             type="submit"
-            className="w-full bg-blue-600 text-white py-3 px-6 rounded-lg font-semibold hover:bg-blue-700 transition-colors"
+            className="w-full bg-gradient-to-r from-indigo-600 via-purple-600 to-pink-600 text-white py-4 px-6 rounded-xl font-bold text-lg hover:from-indigo-700 hover:via-purple-700 hover:to-pink-700 transition-all duration-300 shadow-lg hover:shadow-2xl transform hover:scale-105"
           >
-            Generate Custom Prompt
+            ✨ Generate Custom Prompt
           </button>
         </form>
 
         {generatedPrompt && (
-          <div className="mt-8">
-            <div className="flex justify-between items-center mb-3">
-              <h3 className="text-xl font-bold text-gray-900">Your Customized Prompt</h3>
+          <div className="mt-8 animate-fade-in">
+            <div className="flex justify-between items-center mb-4">
+              <h3 className="text-2xl font-bold bg-gradient-to-r from-green-600 to-teal-600 bg-clip-text text-transparent">Your Customized Prompt</h3>
               <button
                 onClick={copyToClipboard}
-                className="bg-green-600 text-white py-2 px-4 rounded-lg font-medium hover:bg-green-700 transition-colors"
+                className="bg-gradient-to-r from-green-500 to-teal-500 text-white py-3 px-6 rounded-xl font-bold hover:from-green-600 hover:to-teal-600 transition-all duration-300 shadow-lg hover:shadow-xl transform hover:scale-105"
               >
-                {copied ? '✓ Copied!' : 'Copy to Clipboard'}
+                {copied ? '✓ Copied!' : '📋 Copy to Clipboard'}
               </button>
             </div>
 
-            <div className="bg-gray-50 border border-gray-200 rounded-lg p-6">
-              <pre className="whitespace-pre-wrap text-sm text-gray-800 font-mono">
+            <div className="bg-gradient-to-br from-gray-50 to-blue-50 border-2 border-purple-200 rounded-xl p-6 shadow-inner">
+              <pre className="whitespace-pre-wrap text-sm text-gray-800 font-mono leading-relaxed">
                 {generatedPrompt}
               </pre>
             </div>
 
-            <div className="mt-4 p-4 bg-blue-50 border border-blue-200 rounded-lg">
-              <p className="text-sm text-blue-900">
-                <strong>💡 Next Steps:</strong> Copy this prompt and paste it into your agentic browser
+            <div className="mt-6 p-5 bg-gradient-to-r from-blue-50 to-indigo-50 border-l-4 border-indigo-500 rounded-r-xl shadow-md">
+              <p className="text-sm text-indigo-900 font-medium">
+                <strong className="text-lg">💡 Next Steps:</strong> Copy this prompt and paste it into your agentic browser
                 (Comet, ChatGPT, Claude) to get instant, customized assistance for your situation.
               </p>
             </div>

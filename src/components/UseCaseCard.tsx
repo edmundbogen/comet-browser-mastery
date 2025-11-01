@@ -10,13 +10,14 @@ export const UseCaseCard: React.FC<UseCaseCardProps> = ({ useCase, onClick }) =>
   return (
     <button
       onClick={onClick}
-      className="bg-white rounded-xl shadow-md p-6 hover:shadow-xl transition-shadow text-left w-full border-2 border-transparent hover:border-blue-500"
+      className="group bg-gradient-to-br from-white to-purple-50 rounded-2xl shadow-lg p-7 hover:shadow-2xl transition-all duration-300 text-left w-full border-2 border-purple-200 hover:border-purple-500 hover:scale-105 transform"
     >
-      <div className="text-4xl mb-3">{useCase.icon}</div>
-      <h3 className="text-xl font-bold text-gray-900 mb-2">{useCase.title}</h3>
-      <p className="text-gray-600 text-sm">{useCase.description}</p>
-      <div className="mt-4 text-blue-600 font-medium text-sm">
-        Generate Prompt →
+      <div className="text-5xl mb-4 group-hover:scale-110 transition-transform duration-300">{useCase.icon}</div>
+      <h3 className="text-xl font-bold bg-gradient-to-r from-indigo-600 to-purple-600 bg-clip-text text-transparent mb-3">{useCase.title}</h3>
+      <p className="text-gray-700 text-sm leading-relaxed mb-4">{useCase.description}</p>
+      <div className="mt-4 flex items-center text-purple-600 font-semibold text-sm group-hover:text-pink-600 transition-colors">
+        <span>Generate Prompt</span>
+        <span className="ml-2 group-hover:translate-x-2 transition-transform duration-300">→</span>
       </div>
     </button>
   );
