@@ -470,9 +470,9 @@ class CometBrowserMasteryApp:
         main_canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
         main_canvas.configure(yscrollcommand=scrollbar.set)
 
-        # Header - Navy Brand Color
+        # Header - Navy Brand Color (aligned with content)
         header_frame = tk.Frame(scrollable_frame, bg=self.colors['primary'], padx=40, pady=30)
-        header_frame.pack(fill='x')
+        header_frame.pack(fill='x', padx=0)  # No external padding to align with canvas edge
 
         title_label = tk.Label(
             header_frame,
@@ -671,32 +671,36 @@ class CometBrowserMasteryApp:
         )
         desc_label.pack(padx=20, pady=(10, 15))
 
+        # Button container with bright blue background (macOS compatible)
+        button_container = tk.Frame(card_frame, bg='#00a8e1', borderwidth=0, relief='flat')
+        button_container.pack(pady=(5, 20), padx=20, fill='x')
+
         # Button - Bright Blue CTA per brand guidelines
         button = tk.Button(
-            card_frame,
+            button_container,
             text="GENERATE PROMPT →",  # ALL CAPS for CTAs
             font=('Helvetica', 11, 'bold'),
             bg='#00a8e1',  # Bright blue - explicit hex
             fg='white',
             activebackground='#0090c5',  # Darker blue on hover
             activeforeground='white',
-            relief='solid',  # Solid border for crisp look
-            borderwidth=1,
+            relief='flat',  # Flat to blend with container
+            borderwidth=0,
             highlightthickness=0,
-            highlightbackground='#00a8e1',
-            highlightcolor='#00a8e1',
             cursor='hand2',
             command=lambda uc=use_case: self.show_prompt_generator(uc)
         )
-        button.pack(pady=(5, 20), padx=20, fill='x', ipady=8)
+        button.pack(fill='both', expand=True, ipady=10)
 
         # Hover effects - Bright blue accent
         def on_enter(e):
             card_frame.configure(highlightbackground='#00a8e1')  # Bright blue
+            button_container.configure(bg='#0090c5')  # Darker blue
             button.configure(bg='#0090c5')  # Darker blue on hover
 
         def on_leave(e):
             card_frame.configure(highlightbackground=self.colors['border'])
+            button_container.configure(bg='#00a8e1')  # Back to bright blue
             button.configure(bg='#00a8e1')  # Back to bright blue
 
         card_frame.bind('<Enter>', on_enter)
@@ -785,22 +789,26 @@ class CometBrowserMasteryApp:
         for field in use_case['fields']:
             self.create_form_field(fields_container, field)
 
+        # Generate button container (macOS compatible)
+        generate_button_container = tk.Frame(form_frame, bg='#00a8e1')
+        generate_button_container.pack(pady=(0, 30), padx=40, fill='x')
+
         # Generate button - Bright Blue CTA per brand
         generate_button = tk.Button(
-            form_frame,
+            generate_button_container,
             text="GENERATE CUSTOM PROMPT",  # ALL CAPS for CTAs
             font=('Helvetica', 13, 'bold'),
-            bg=self.colors['secondary'],  # Bright blue #00a8e1
+            bg='#00a8e1',  # Bright blue #00a8e1
             fg='white',
             activebackground='#0090c5',  # Darker on hover
             activeforeground='white',
             relief='flat',
+            borderwidth=0,
+            highlightthickness=0,
             cursor='hand2',
-            command=self.generate_prompt,
-            padx=30,
-            pady=15
+            command=self.generate_prompt
         )
-        generate_button.pack(pady=(0, 30), padx=40, fill='x')
+        generate_button.pack(fill='both', expand=True, ipady=12)
 
         # Pack canvas and scrollbar
         main_canvas.pack(side="left", fill="both", expand=True)
@@ -966,21 +974,25 @@ class CometBrowserMasteryApp:
         )
         title_label.pack(side='left')
 
+        # Copy button container (macOS compatible)
+        copy_button_container = tk.Frame(header_frame, bg='#00a8e1')
+        copy_button_container.pack(side='right')
+
         copy_button = tk.Button(
-            header_frame,
+            copy_button_container,
             text="COPY TO CLIPBOARD",  # ALL CAPS for CTA
             font=('Helvetica', 11, 'bold'),
-            bg=self.colors['secondary'],  # Bright blue
+            bg='#00a8e1',  # Bright blue
             fg='white',
             activebackground='#0090c5',  # Darker blue
             activeforeground='white',
             relief='flat',
+            borderwidth=0,
+            highlightthickness=0,
             cursor='hand2',
-            command=lambda: self.copy_to_clipboard(prompt, result_window),
-            padx=20,
-            pady=10
+            command=lambda: self.copy_to_clipboard(prompt, result_window)
         )
-        copy_button.pack(side='right')
+        copy_button.pack(padx=20, pady=10, ipady=5)
 
         # Prompt text
         text_frame = tk.Frame(result_window, bg=self.colors['bg_white'], relief='solid', borderwidth=2)
