@@ -392,21 +392,21 @@ class CometBrowserMasteryApp:
 
     def __init__(self, root):
         self.root = root
-        self.root.title("✨ Comet Browser Mastery - AI Prompt Generator")
+        self.root.title("THE EDMUND BOGEN TEAM - Comet Browser Mastery")
         self.root.geometry("1200x800")
-        self.root.configure(bg='#f0e6ff')
+        self.root.configure(bg='#f4f4f4')  # Light gray brand background
 
-        # Color scheme
+        # Edmund Bogen Brand Color Scheme
         self.colors = {
-            'primary': '#6366f1',
-            'secondary': '#8b5cf6',
-            'accent': '#ec4899',
-            'bg_light': '#f0e6ff',
-            'bg_white': '#ffffff',
-            'text_dark': '#1f2937',
-            'text_light': '#6b7280',
-            'success': '#10b981',
-            'border': '#e0d4f7'
+            'primary': '#1a3e5c',      # Navy - PRIMARY brand color (60%)
+            'secondary': '#00a8e1',    # Bright Blue - ACCENT color (10-15%)
+            'accent': '#00a8e1',       # Same as secondary for consistency
+            'bg_light': '#f4f4f4',     # Light gray background
+            'bg_white': '#ffffff',     # White (25-30%)
+            'text_dark': '#000000',    # Black for text
+            'text_light': '#333333',   # Dark gray for body text
+            'success': '#00a8e1',      # Bright blue for CTAs
+            'border': '#e8e8e8'        # Light gray border
         }
 
         # Current state
@@ -469,27 +469,27 @@ class CometBrowserMasteryApp:
         main_canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
         main_canvas.configure(yscrollcommand=scrollbar.set)
 
-        # Header
-        header_frame = tk.Frame(scrollable_frame, bg='#6366f1', padx=40, pady=30)
+        # Header - Navy Brand Color
+        header_frame = tk.Frame(scrollable_frame, bg=self.colors['primary'], padx=40, pady=30)
         header_frame.pack(fill='x')
 
         title_label = tk.Label(
             header_frame,
-            text="✨ Comet Browser Mastery",
+            text="THE EDMUND BOGEN TEAM",
             font=('Helvetica', 32, 'bold'),
-            bg='#6366f1',
+            bg=self.colors['primary'],
             fg='white'
         )
         title_label.pack()
 
         subtitle_label = tk.Label(
             header_frame,
-            text="Interactive AI Prompt Generator for Real Estate Professionals",
-            font=('Helvetica', 14),
-            bg='#6366f1',
-            fg='#e0e7ff'
+            text="COMET BROWSER MASTERY - AI Prompt Generator for Real Estate Professionals",
+            font=('Helvetica', 13),
+            bg=self.colors['primary'],
+            fg='white'
         )
-        subtitle_label.pack()
+        subtitle_label.pack(pady=(5, 0))
 
         # Welcome section
         welcome_frame = tk.Frame(scrollable_frame, bg=self.colors['bg_white'], padx=40, pady=30)
@@ -497,10 +497,10 @@ class CometBrowserMasteryApp:
 
         welcome_title = tk.Label(
             welcome_frame,
-            text="Welcome to Your AI Assistant Customizer",
-            font=('Helvetica', 20, 'bold'),
+            text="WELCOME TO YOUR AI ASSISTANT CUSTOMIZER",
+            font=('Helvetica', 18, 'bold'),
             bg=self.colors['bg_white'],
-            fg=self.colors['primary']
+            fg=self.colors['text_dark']
         )
         welcome_title.pack(anchor='w')
 
@@ -516,28 +516,32 @@ class CometBrowserMasteryApp:
         )
         welcome_text.pack(anchor='w', pady=(10, 15))
 
-        tip_frame = tk.Frame(welcome_frame, bg='#eff6ff', relief='solid', borderwidth=2, bd=0)
+        # Vertical accent bar (left side - brand element)
+        accent_bar = tk.Frame(welcome_frame, bg=self.colors['secondary'], width=4)
+        accent_bar.pack(side='left', fill='y', pady=10)
+
+        tip_frame = tk.Frame(welcome_frame, bg='#e8f4f8', relief='flat', borderwidth=0)
         tip_frame.pack(fill='x', pady=10)
 
         tip_label = tk.Label(
             tip_frame,
-            text="💡 Pro Tip: These prompts work best when you provide specific details.\nThe more context you add, the better your AI assistant can help you.",
-            font=('Helvetica', 10),
-            bg='#eff6ff',
-            fg='#1e40af',
+            text="PRO TIP: These prompts work best when you provide specific details.\nThe more context you add, the better your AI assistant can help you.",
+            font=('Helvetica', 11),
+            bg='#e8f4f8',
+            fg=self.colors['primary'],
             justify='left',
             padx=20,
             pady=15
         )
         tip_label.pack()
 
-        # Use cases title
+        # Use cases title - Brand styling
         use_cases_title = tk.Label(
             scrollable_frame,
-            text="Choose Your Use Case",
-            font=('Helvetica', 24, 'bold'),
+            text="CHOOSE YOUR USE CASE",
+            font=('Helvetica', 22, 'bold'),
             bg=self.colors['bg_light'],
-            fg=self.colors['secondary']
+            fg=self.colors['text_dark']
         )
         use_cases_title.pack(pady=(20, 20))
 
@@ -557,53 +561,53 @@ class CometBrowserMasteryApp:
         for i in range(3):
             grid_frame.columnconfigure(i, weight=1)
 
-        # About section
-        about_frame = tk.Frame(scrollable_frame, bg='#1f2937', padx=40, pady=30)
+        # About section - Navy brand color
+        about_frame = tk.Frame(scrollable_frame, bg=self.colors['primary'], padx=40, pady=30)
         about_frame.pack(fill='x', padx=40, pady=(30, 20))
 
         about_title = tk.Label(
             about_frame,
-            text="About This Tool",
-            font=('Helvetica', 20, 'bold'),
-            bg='#1f2937',
-            fg='#fbbf24'
+            text="ABOUT THE EDMUND BOGEN TEAM",
+            font=('Helvetica', 18, 'bold'),
+            bg=self.colors['primary'],
+            fg='white'
         )
         about_title.pack(anchor='w')
 
         about_text = tk.Label(
             about_frame,
-            text=("This workbook was created by Edmund Bogen, Luxury Real Estate Advisor,\n"
-                  "Coach & Speaker in South Florida. The strategies in this tool are designed to help real\n"
-                  "estate professionals leverage AI to 10x their productivity."),
+            text=("The Edmund Bogen Team at Douglas Elliman Real Estate serves South Florida from Palm Beach to Miami.\n"
+                  "Luxury Real Estate Advisor, Coach & Speaker specializing in professional luxury properties.\n"
+                  "This tool leverages AI to help real estate professionals 10x their productivity."),
             font=('Helvetica', 12),
-            bg='#1f2937',
-            fg='#e5e7eb',
+            bg=self.colors['primary'],
+            fg='white',
             justify='left'
         )
         about_text.pack(anchor='w', pady=(10, 15))
 
         security_label = tk.Label(
             about_frame,
-            text=("🔒 Security Notice: Never input sensitive client information (SSNs, financial details,\n"
+            text=("🔒 SECURITY NOTICE: Never input sensitive client information (SSNs, financial details,\n"
                   "legal documents) into AI tools. Use this generator for templates and frameworks, then add\n"
                   "client-specific details in your secure systems."),
             font=('Helvetica', 10),
-            bg='#1f2937',
-            fg='#9ca3af',
+            bg=self.colors['primary'],
+            fg='#e8e8e8',
             justify='left'
         )
         security_label.pack(anchor='w')
 
-        # Footer
-        footer_frame = tk.Frame(scrollable_frame, bg='#374151', padx=40, pady=20)
+        # Footer - Navy brand
+        footer_frame = tk.Frame(scrollable_frame, bg=self.colors['primary'], padx=40, pady=20)
         footer_frame.pack(fill='x', pady=(20, 0))
 
         footer_label = tk.Label(
             footer_frame,
-            text="© 2025 Edmund Bogen - Comet Browser Mastery Workbook | For Real Estate Professionals",
+            text="© 2025 THE EDMUND BOGEN TEAM AT DOUGLAS ELLIMAN REAL ESTATE | Comet Browser Mastery",
             font=('Helvetica', 10),
-            bg='#374151',
-            fg='#d1d5db'
+            bg=self.colors['primary'],
+            fg='white'
         )
         footer_label.pack()
 
@@ -638,13 +642,13 @@ class CometBrowserMasteryApp:
         )
         icon_label.pack(pady=(20, 10))
 
-        # Title
+        # Title - Navy brand color
         title_label = tk.Label(
             card_frame,
-            text=use_case['title'],
-            font=('Helvetica', 14, 'bold'),
+            text=use_case['title'].upper(),  # ALL CAPS per brand guidelines
+            font=('Helvetica', 13, 'bold'),
             bg=self.colors['bg_white'],
-            fg=self.colors['primary'],
+            fg=self.colors['primary'],  # Navy
             wraplength=250
         )
         title_label.pack(padx=20)
@@ -661,14 +665,14 @@ class CometBrowserMasteryApp:
         )
         desc_label.pack(padx=20, pady=(10, 15))
 
-        # Button
+        # Button - Bright Blue CTA per brand guidelines
         button = tk.Button(
             card_frame,
-            text="Generate Prompt →",
-            font=('Helvetica', 11, 'bold'),
-            bg=self.colors['primary'],
+            text="GENERATE PROMPT →",  # ALL CAPS for CTAs
+            font=('Helvetica', 10, 'bold'),
+            bg=self.colors['secondary'],  # Bright blue #00a8e1
             fg='white',
-            activebackground=self.colors['secondary'],
+            activebackground='#0090c5',  # Darker blue on hover
             activeforeground='white',
             relief='flat',
             cursor='hand2',
@@ -676,14 +680,14 @@ class CometBrowserMasteryApp:
         )
         button.pack(pady=(0, 20), padx=20, fill='x')
 
-        # Hover effects
+        # Hover effects - Bright blue accent
         def on_enter(e):
-            card_frame.configure(highlightbackground=self.colors['primary'])
-            button.configure(bg=self.colors['secondary'])
+            card_frame.configure(highlightbackground=self.colors['secondary'])  # Bright blue
+            button.configure(bg='#0090c5')  # Darker blue
 
         def on_leave(e):
             card_frame.configure(highlightbackground=self.colors['border'])
-            button.configure(bg=self.colors['primary'])
+            button.configure(bg=self.colors['secondary'])  # Back to bright blue
 
         card_frame.bind('<Enter>', on_enter)
         card_frame.bind('<Leave>', on_leave)
@@ -712,15 +716,15 @@ class CometBrowserMasteryApp:
         main_canvas.create_window((0, 0), window=scrollable_frame, anchor="nw")
         main_canvas.configure(yscrollcommand=scrollbar.set)
 
-        # Back button
+        # Back button - Brand styling
         back_button = tk.Button(
             scrollable_frame,
-            text="← Back to Use Cases",
-            font=('Helvetica', 12, 'bold'),
+            text="← BACK TO USE CASES",  # ALL CAPS
+            font=('Helvetica', 11, 'bold'),
             bg=self.colors['bg_white'],
-            fg=self.colors['primary'],
-            activebackground='#faf5ff',
-            activeforeground=self.colors['secondary'],
+            fg=self.colors['primary'],  # Navy
+            activebackground='#f4f4f4',
+            activeforeground=self.colors['secondary'],  # Bright blue on hover
             relief='flat',
             cursor='hand2',
             command=self.show_main_menu,
@@ -747,10 +751,10 @@ class CometBrowserMasteryApp:
 
         title_label = tk.Label(
             header_container,
-            text=use_case['title'],
-            font=('Helvetica', 28, 'bold'),
+            text=use_case['title'].upper(),  # ALL CAPS per brand
+            font=('Helvetica', 24, 'bold'),
             bg=self.colors['bg_white'],
-            fg=self.colors['primary']
+            fg=self.colors['primary']  # Navy
         )
         title_label.pack(pady=(10, 5))
 
@@ -770,14 +774,14 @@ class CometBrowserMasteryApp:
         for field in use_case['fields']:
             self.create_form_field(fields_container, field)
 
-        # Generate button
+        # Generate button - Bright Blue CTA per brand
         generate_button = tk.Button(
             form_frame,
-            text="✨ Generate Custom Prompt",
-            font=('Helvetica', 14, 'bold'),
-            bg=self.colors['primary'],
+            text="GENERATE CUSTOM PROMPT",  # ALL CAPS for CTAs
+            font=('Helvetica', 13, 'bold'),
+            bg=self.colors['secondary'],  # Bright blue #00a8e1
             fg='white',
-            activebackground=self.colors['secondary'],
+            activebackground='#0090c5',  # Darker on hover
             activeforeground='white',
             relief='flat',
             cursor='hand2',
@@ -929,7 +933,7 @@ class CometBrowserMasteryApp:
     def show_prompt_result(self, prompt):
         """Show the generated prompt in a new window"""
         result_window = tk.Toplevel(self.root)
-        result_window.title("Your Customized Prompt")
+        result_window.title("YOUR CUSTOMIZED PROMPT - Edmund Bogen Team")
         result_window.geometry("800x600")
         result_window.configure(bg=self.colors['bg_light'])
 
@@ -939,20 +943,20 @@ class CometBrowserMasteryApp:
 
         title_label = tk.Label(
             header_frame,
-            text="Your Customized Prompt",
-            font=('Helvetica', 20, 'bold'),
+            text="YOUR CUSTOMIZED PROMPT",  # ALL CAPS
+            font=('Helvetica', 18, 'bold'),
             bg=self.colors['bg_white'],
-            fg=self.colors['success']
+            fg=self.colors['primary']  # Navy
         )
         title_label.pack(side='left')
 
         copy_button = tk.Button(
             header_frame,
-            text="📋 Copy to Clipboard",
-            font=('Helvetica', 12, 'bold'),
-            bg=self.colors['success'],
+            text="COPY TO CLIPBOARD",  # ALL CAPS for CTA
+            font=('Helvetica', 11, 'bold'),
+            bg=self.colors['secondary'],  # Bright blue
             fg='white',
-            activebackground='#059669',
+            activebackground='#0090c5',  # Darker blue
             activeforeground='white',
             relief='flat',
             cursor='hand2',
@@ -978,17 +982,17 @@ class CometBrowserMasteryApp:
         text_widget.insert('1.0', prompt)
         text_widget.configure(state='disabled')
 
-        # Tip
-        tip_frame = tk.Frame(result_window, bg='#eff6ff', relief='solid', borderwidth=2)
+        # Tip - Brand styling
+        tip_frame = tk.Frame(result_window, bg='#e8f4f8', relief='flat', borderwidth=0)
         tip_frame.pack(fill='x', padx=20, pady=(0, 20))
 
         tip_label = tk.Label(
             tip_frame,
-            text=("💡 Next Steps: Copy this prompt and paste it into your agentic browser\n"
+            text=("NEXT STEPS: Copy this prompt and paste it into your agentic browser\n"
                   "(Comet, ChatGPT, Claude) to get instant, customized assistance for your situation."),
-            font=('Helvetica', 10),
-            bg='#eff6ff',
-            fg='#1e40af',
+            font=('Helvetica', 11),
+            bg='#e8f4f8',
+            fg=self.colors['primary'],  # Navy
             justify='left',
             padx=20,
             pady=15
